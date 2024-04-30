@@ -5,7 +5,7 @@ FROM node:22
 WORKDIR /app
 
 # Copy the rest of the application to the working directory
-COPY src src
+COPY . .
 
 # Make port 3000 available to the outside world
 EXPOSE 3000
