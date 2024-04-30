@@ -62,8 +62,6 @@ hour_details=$(echo "$hour_details" | jq -s)
 nearest_hour=$(( (((10#$utc_hour + 3) / 6) * 6) % 24 ))
 nearest_hour=$(printf "%02d" $((10#$nearest_hour)))
 
-# Call the weather API with the location details for the nearest hour
-response=$(curl -s --header 'Accept: application/json' "https://api.met.no/weatherapi/locationforecast/2.0/complete?altitude=$altitude&lat=$latitude&lon=$longitude")
 nearest_details=$(echo "$response" | jq --arg hour "$nearest_hour" '.properties.timeseries[] | select((.time | strptime("%Y-%m-%dT%H:%M:%SZ") | strftime("%H")) == $hour) | {time: .time, details: .data.instant.details}')
 
 echo "---------------------------------"
@@ -98,7 +96,7 @@ count=0
 # Use jq to parse the JSON array and iterate over it
 echo "$nearest_details" | jq -c '.[]' | while read -r item; do
   count=$((count + 1))
-  if [ $count -lt $((num_entries + 1)) ]; then
+  if [ $count -lt $((num_entries)) ]; then
     continue
   fi
   # Use jq to extract the temperature and windSpeed from each item
