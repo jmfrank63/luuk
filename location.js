@@ -1,7 +1,7 @@
 const http = require("http");
 const https = require("https");
 const querystring = require("querystring");
-const getWeatherData = require('./weather.js');
+const getWeatherData = require("./weather.js");
 
 function fetchLocationData(
   location = "Moscow",
@@ -59,8 +59,8 @@ function fetchLocationData(
               const locationData = {
                 location: locationDetails.name,
                 country: locationDetails.countryName,
-                latitude: locationDetails.lat,
-                longitude: locationDetails.lng,
+                latitude: parseFloat((+locationDetails.lat).toFixed(4)),
+                longitude: parseFloat((+locationDetails.lng).toFixed(4)),
                 altitude: locationDetails.srtm3,
                 utc_hour: utc_hour,
                 dstOffset: locationDetails.timezone.dstOffset,
@@ -68,7 +68,7 @@ function fetchLocationData(
               getWeatherData(locationData).then((weatherData) => {
                 const combinedData = {
                   ...locationData,
-                  ...weatherData
+                  ...weatherData,
                 };
                 resolve(combinedData);
               });
