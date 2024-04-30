@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather-App-Demo</title>
+    <script src="js/htmx.min.js"></script>
+</head>
+<body>
+    <form method="POST" action="/html/weather">
+        <input type="text" id="location" name="location" placeholder="Enter a location">
+        <button type="submit">Get Forecast</button>
+    </form>
+
+    <div id="forecast">
+        <!-- The forecast data will be inserted here -->
+    </div>
+</body>
+</html>
