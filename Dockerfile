@@ -5,10 +5,10 @@ FROM node:22
 WORKDIR /app
 
 # Copy the rest of the application to the working directory
-COPY . .
+COPY src src
 
 # Make port 3000 available to the outside world
 EXPOSE 3000
 
 # Define the command to run the application
-CMD [ "node", "server.js" ]
+CMD [ "node", "src/server.js" ]
