@@ -1,8 +1,13 @@
 const http = require("http");
 const https = require("https");
 const querystring = require("querystring");
+const getWeatherData = require('./weather.js');
 
-function fetchLocationData(location = 'Moscow', utc_hour = '11', username = 'jmfrank63') {
+function fetchLocationData(
+  location = "Moscow",
+  utc_hour = "11",
+  username = "jmfrank63"
+) {
   return new Promise((resolve, reject) => {
     const encodedLocation = querystring.escape(location);
 
@@ -21,12 +26,14 @@ function fetchLocationData(location = 'Moscow', utc_hour = '11', username = 'jmf
       });
       res.on("end", () => {
         const locationResponse = JSON.parse(data);
-        console.log(JSON.stringify(locationResponse));
-        if (!locationResponse.geonames || locationResponse.geonames.length === 0) {
+        if (
+          !locationResponse.geonames ||
+          locationResponse.geonames.length === 0
+        ) {
           reject(new Error(`No results found for location "${location}"`));
           return;
         }
-      
+
         const geonameId = locationResponse.geonames[0].geonameId;
 
         // Use the GeoNames API to get the location details
@@ -37,28 +44,38 @@ function fetchLocationData(location = 'Moscow', utc_hour = '11', username = 'jmf
           headers: { Accept: "application/json" },
         };
 
-        const geonamesDetailsReq = http.request(geonamesDetailsOptions, (res) => {
-          let data = "";
-          res.on("data", (chunk) => {
-            data += chunk;
-          });
-          res.on("end", () => {
-            const locationDetails = JSON.parse(data);
+        const geonamesDetailsReq = http.request(
+          geonamesDetailsOptions,
+          (res) => {
+            let data = "";
+            res.on("data", (chunk) => {
+              data += chunk;
+            });
+            res.on("end", () => {
+              const locationDetails = JSON.parse(data);
 
-            // Use the location details to get the location data
-            // You can replace this with your actual code to get the location data
-            const locationData = {
-              location: locationDetails.name,
-              country: locationDetails.countryName,
-              latitude: locationDetails.lat,
-              longitude: locationDetails.lng,
-              altitude: locationDetails.srtm3,
-              utc_hour: utc_hour,
-            };
-            console.log(JSON.stringify(locationData));
-            resolve(locationData);
-          });
-        });
+              // Use the location details to get the location data
+              // You can replace this with your actual code to get the location data
+              const locationData = {
+                location: locationDetails.name,
+                country: locationDetails.countryName,
+                latitude: locationDetails.lat,
+                longitude: locationDetails.lng,
+                altitude: locationDetails.srtm3,
+                utc_hour: utc_hour,
+                dstOffset: locationDetails.timezone.dstOffset,
+              };
+              getWeatherData(locationData).then((weatherData) => {
+                const combinedData = {
+                  ...locationData,
+                  ...weatherData
+                };
+                console.log(combinedData);
+                resolve(combinedData);
+              });
+            });
+          }
+        );
 
         geonamesDetailsReq.on("error", (err) => {
           reject(err);
@@ -78,4 +95,4 @@ function fetchLocationData(location = 'Moscow', utc_hour = '11', username = 'jmf
 
 module.exports = fetchLocationData;
 // const geoUsername = process.env.GEO_USERNAME || "demo";
-// fetchlocationData("Moscow", geoUsername, "11");
+// fetchWeatherData("Moscow", geoUsername, "11");
