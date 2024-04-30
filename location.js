@@ -70,7 +70,6 @@ function fetchLocationData(
                   ...locationData,
                   ...weatherData
                 };
-                console.log(combinedData);
                 resolve(combinedData);
               });
             });
