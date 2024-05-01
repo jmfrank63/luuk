@@ -1,9 +1,9 @@
 const http = require("http");
 const https = require("https");
 const querystring = require("querystring");
-const getWeatherData = require("./weather.js");
+const {getWeatherData} = require("./weather.js");
 
-function fetchLocationData(
+function fetchLocationWeatherData(
   location = "Moscow",
   utc_hour = "11",
   username = "jmfrank63"
@@ -92,6 +92,6 @@ function fetchLocationData(
   });
 }
 
-module.exports = fetchLocationData;
+module.exports = fetchLocationWeatherData;
 // const geoUsername = process.env.GEO_USERNAME || "demo";
 // fetchWeatherData("Moscow", geoUsername, "11");

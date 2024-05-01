@@ -1,6 +1,6 @@
 const fetchLocationData = require("../location");
 
-async function html_weather(_req, res, location, _utc, _username) {
+async function htmx_weather(_req, res, location, _utc, _username) {
   try {
     const locationData = await fetchLocationData(location);
     let forecastHtml = `
@@ -25,4 +25,4 @@ async function html_weather(_req, res, location, _utc, _username) {
   }
 }
 
-module.exports = html_weather;
+module.exports = htmx_weather;

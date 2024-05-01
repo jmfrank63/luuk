@@ -90,4 +90,7 @@ function getWeatherData(locationData) {
   });
 }
 
-module.exports = getWeatherData;
+module.exports = {
+  getNearestHour,
+  getWeatherData,
+};

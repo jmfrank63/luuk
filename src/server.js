@@ -4,9 +4,16 @@ const fs = require("fs");
 const path = require("path");
 const RateLimiter = require("./ratelimit");
 const fetchLocationData = require("./location");
-const html_weather = require("./endpoints/html_weather");
+const html_weather = require("./handlers/htmx_weather");
 
 const rateLimiter = new RateLimiter(1, 10); // tokens per second, max tokens
+
+// const routeHandlers = {
+//   "/html/js/htmx.min.js": rateLimitMiddleware(handleHtmxJs),
+//   "/html/weather": rateLimitMiddleware(handleHtmlWeather),
+//   "/": rateLimitMiddleware(handleRoot),
+//   "/api/weather": rateLimitMiddleware(handleApiWeather),
+// };
 
 const server = http.createServer(async (req, res) => {
   const requestUrl = url.parse(req.url, true);
@@ -41,7 +48,6 @@ const server = http.createServer(async (req, res) => {
       } else {
         // Fetch the weather data for Moscow
         const locationData = await fetchLocationData("Moscow");
-
         // Generate the forecast HTML
         let forecastHtml = `
           <h1>${locationData.location}, ${locationData.country}</h1>
