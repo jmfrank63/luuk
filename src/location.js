@@ -78,7 +78,6 @@ function getGeonameIdData(geonameId, utc_hour) {
 }
 
 async function fetchLocationData(location) {
-  console.log("Fetching location data via api");
   // Use the GeoNames API to get the location ID
   const utc_hour = "11";
   const geonameId = await getGeonameId(location);
@@ -93,8 +92,6 @@ async function fetchLocationData(location) {
     ...locationData,
     ...weatherData,
   };
-  console.log("Combined data:");
-  console.log(combinedData);
   return combinedData;
 }
 

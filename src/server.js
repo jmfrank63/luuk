@@ -2,7 +2,7 @@ const http = require("http");
 const url = require("url");
 const fs = require("fs");
 const path = require("path");
-const RateLimiter = require("./ratelimit");
+const RateLimiter = require("./middleware/ratelimiter");
 const { fetchLocationData } = require("./location");
 const html_weather = require("./handlers/htmx_weather");
 
