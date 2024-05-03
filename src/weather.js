@@ -13,7 +13,7 @@ function getNearestHour(hour) {
     }
   }
 
-  return nearestHour;
+  return nearestHour % 24;
 }
 
 function getWeatherData(locationData) {
@@ -91,6 +91,6 @@ function getWeatherData(locationData) {
 }
 
 module.exports = {
-  getNearestHour,
   getWeatherData,
-};
+  getNearestHour,
+}

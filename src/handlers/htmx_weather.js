@@ -1,4 +1,4 @@
-const fetchLocationData = require("../location");
+const { fetchLocationData } = require("../location");
 
 async function htmx_weather(_req, res, location, _utc, _username) {
   try {
@@ -11,9 +11,10 @@ async function htmx_weather(_req, res, location, _utc, _username) {
     `;
     const keys = Object.keys(locationData);
     for (let i = 0; i < keys.length; i++) {
-      if (keys[i].startsWith('2024')) { // Check if the key represents a date
+      if (keys[i].startsWith("2024")) {
+        // Check if the key represents a date
         const dayData = locationData[keys[i]];
-        forecastHtml += `<li>${keys[i]}: ${dayData.temperature}°C, wind ${dayData.windSpeed}m/s</li>`;
+        forecastHtml += `<li>${keys[i]}: ${dayData.temperature}°C, wind ${dayData.windSpeed}m/s</li>\n`;
       }
     }
     forecastHtml += "</ul>";
