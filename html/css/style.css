@@ -2,6 +2,10 @@ body {
     font-family: sans-serif;
   }
   
+  .container {
+    min-width: 300px;
+  }
+  
   #forecast ul {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* This will create a responsive grid with a minimum column width of 200px. Adjust the pixel value for different column widths. */
@@ -46,4 +50,38 @@ form button {
 
 form button:hover {
   background-color: #45a049;
+}
+
+#logo-form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "form logo";
+  align-items: center;
+  gap: 20px;
+}
+
+form {
+  grid-area: form;
+}
+
+#logo {
+  grid-area: logo;
+  width: 50%;
+  height: auto;
+  justify-self: center;
+  min-width: 50%;
+}
+
+@media screen and (max-width: 600px) {
+  #logo-form-container {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "logo"
+      "form";
+  }
+
+  #logo {
+    justify-self: center;
+    width: 50%;
+  }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +8,22 @@
     <script src="js/htmx.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <form hx-post="/weather" hx-trigger="load, submit" hx-target="#forecast">
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" placeholder="Enter a location" value="Moscow">
-        
-        <label for="utc_hour">UTC Time:</label>
-        <input type="number" id="utc_hour" name="utc_hour" placeholder="Enter a utc hour" value="11" min="0" max="24">        
-        <button type="submit">Get Forecast</button>
-    </form>
+    <div class="container">
+        <div id="logo-form-container">
+            <img src="img/LUUK_logo_black_full.png" id="logo" alt="Luuk Logo">
+            <form hx-post="/weather" hx-trigger="load, submit" hx-target="#forecast">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter a location" value="Moscow">
+
+                <label for="utc_hour">UTC Time:</label>
+                <input type="number" id="utc_hour" name="utc_hour" placeholder="Enter a utc hour" value="11" min="0"
+                    max="24">
+                <button type="submit">Get Forecast</button>
+            </form>
+        </div>
+    </div>
 
     <div id="forecast">
         <!-- The forecast data will be inserted here -->
