@@ -15,6 +15,9 @@ const server = http.createServer((req, res) => {
   handler(req, res, () => {
     notFound(req, res);
   });
+  res.on('finish', () => {
+    console.log(`[${new Date().toISOString()}] Response status code: ${res.statusCode}`);
+  });
 });
 
 server.listen(port, hostname, () => {

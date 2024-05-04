@@ -2,12 +2,11 @@ const https = require("https");
 const fs = require("fs");
 const path = require("path");
 const assert = require("assert");
-const test = require('node:test');
-const {getWeatherData} = require("../src/core/weather.js");
+const test = require("node:test");
+const { getWeatherData } = require("../src/core/weather.js");
 
 // Save the original https.get function
 const originalHttpsGet = https.get;
-
 
 test("getWeatherData", async () => {
   // Read the mock data from disk
@@ -52,73 +51,73 @@ test("getWeatherData", async () => {
   };
 
   expectedData = {
-    '2024-05-02': {
-      time: '2024-05-02T18:00:00.000Z',
-      localTime: '1:00:00 AM',
+    "2024-05-02": {
+      time: "2024-05-02T11:00:00.000Z",
+      localTime: "6:00:00 PM",
       temperature: 2.7,
       windSpeed: 7,
-      windDirection: 168.8
+      windDirection: 168.8,
     },
-    '2024-05-03': {
-      time: '2024-05-03T18:00:00.000Z',
-      localTime: '1:00:00 AM',
+    "2024-05-03": {
+      time: "2024-05-03T11:00:00.000Z",
+      localTime: "6:00:00 PM",
       temperature: 5.6,
       windSpeed: 2.5,
-      windDirection: 307.8
+      windDirection: 307.8,
     },
-    '2024-05-04': {
-      time: '2024-05-04T19:00:00.000Z',
-      localTime: '2:00:00 AM',
+    "2024-05-04": {
+      time: "2024-05-04T12:00:00.000Z",
+      localTime: "7:00:00 PM",
       temperature: 12,
       windSpeed: 4.9,
-      windDirection: 90
+      windDirection: 90,
     },
-    '2024-05-05': {
-      time: '2024-05-05T19:00:00.000Z',
-      localTime: '2:00:00 AM',
+    "2024-05-05": {
+      time: "2024-05-05T12:00:00.000Z",
+      localTime: "7:00:00 PM",
       temperature: 16,
       windSpeed: 6.6,
-      windDirection: 200.8
+      windDirection: 200.8,
     },
-    '2024-05-06': {
-      time: '2024-05-06T19:00:00.000Z',
-      localTime: '2:00:00 AM',
+    "2024-05-06": {
+      time: "2024-05-06T12:00:00.000Z",
+      localTime: "7:00:00 PM",
       temperature: 10.9,
       windSpeed: 4.9,
-      windDirection: 267.5
+      windDirection: 267.5,
     },
-    '2024-05-07': {
-      time: '2024-05-07T19:00:00.000Z',
-      localTime: '2:00:00 AM',
+    "2024-05-07": {
+      time: "2024-05-07T12:00:00.000Z",
+      localTime: "7:00:00 PM",
       temperature: 12.3,
       windSpeed: 1.6,
-      windDirection: 97.6
+      windDirection: 97.6,
     },
-    '2024-05-08': {
-      time: '2024-05-08T19:00:00.000Z',
-      localTime: '2:00:00 AM',
+    "2024-05-08": {
+      time: "2024-05-08T12:00:00.000Z",
+      localTime: "7:00:00 PM",
       temperature: 16.7,
       windSpeed: 1.4,
-      windDirection: 119.1
+      windDirection: 119.1,
     },
-    '2024-05-09': {
-      time: '2024-05-09T19:00:00.000Z',
-      localTime: '2:00:00 AM',
+    "2024-05-09": {
+      time: "2024-05-09T12:00:00.000Z",
+      localTime: "7:00:00 PM",
       temperature: 20.7,
       windSpeed: 3.7,
-      windDirection: 139.1
+      windDirection: 139.1,
     },
-    '2024-05-10': {
-      time: '2024-05-10T19:00:00.000Z',
-      localTime: '2:00:00 AM',
+    "2024-05-10": {
+      time: "2024-05-10T12:00:00.000Z",
+      localTime: "7:00:00 PM",
       temperature: 17.9,
       windSpeed: 5.4,
-      windDirection: 229.2
-    }
-  }
+      windDirection: 229.2,
+    },
+  };
 
   const weatherData = await getWeatherData(mockLocationData);
-  
+
   assert.deepStrictEqual(weatherData, expectedData);
 
   // Restore the original https.get function

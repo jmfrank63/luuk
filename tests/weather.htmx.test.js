@@ -65,15 +65,15 @@ test("htmx_weather", async () => {
       <p>Latitude: 56.4977, Longitude: 84.9744</p>
       <p>Altitude: 117m, UTC Hour: 11, DST Offset: 7</p>
       <ul>
-    <li>2024-05-04: 9.5°C, wind 5.1m/s</li>
-<li>2024-05-05: 16°C, wind 6.1m/s</li>
-<li>2024-05-06: 9.5°C, wind 5.2m/s</li>
-<li>2024-05-07: 12.1°C, wind 2.8m/s</li>
-<li>2024-05-08: 13°C, wind 3.9m/s</li>
-<li>2024-05-09: 13.4°C, wind 2.6m/s</li>
-<li>2024-05-10: 17.6°C, wind 2.4m/s</li>
-<li>2024-05-11: 16.6°C, wind 2.6m/s</li>
-<li>2024-05-12: 15.4°C, wind 1.7m/s</li>
+    <li>2024-05-04 1:00:00AM 9.5°C, Wind 5.1m/s Direction 114.7</li>
+<li>2024-05-05 1:00:00AM 16°C, Wind 6.1m/s Direction 249.5</li>
+<li>2024-05-06 2:00:00AM 9.5°C, Wind 5.2m/s Direction 254.2</li>
+<li>2024-05-07 2:00:00AM 12.1°C, Wind 2.8m/s Direction 165.5</li>
+<li>2024-05-08 2:00:00AM 13°C, Wind 3.9m/s Direction 335.2</li>
+<li>2024-05-09 2:00:00AM 13.4°C, Wind 2.6m/s Direction 79.4</li>
+<li>2024-05-10 2:00:00AM 17.6°C, Wind 2.4m/s Direction 87</li>
+<li>2024-05-11 2:00:00AM 16.6°C, Wind 2.6m/s Direction 349.6</li>
+<li>2024-05-12 2:00:00AM 15.4°C, Wind 1.7m/s Direction 266.6</li>
 </ul>`;
   assert.strictEqual(responseData, expectedHtml);
 

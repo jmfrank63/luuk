@@ -85,7 +85,7 @@ function getGeonameIdData(geonameId, utc_hour) {
 async function fetchLocationWeather(location, utc_hour = "11") {
   const geonameId = await getGeonameId(location);
   if (typeof geonameId === 'string' && geonameId.includes("not found")) {
-    return { error: geonameId };
+    return { location: geonameId };
   }
   // Use the GeoNames API to get the location details
   const locationData = await getGeonameIdData(geonameId, utc_hour);
