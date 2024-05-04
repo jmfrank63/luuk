@@ -16,5 +16,11 @@ docker run --rm --privileged tonistiigi/binfmt:latest
 # Build the Docker image for amd64
 docker buildx build --platform linux/amd64 -t ghcr.io/jmfrank63/luuk/luuk:latest .
 
+# Build the Docker image for arm64
+docker buildx build --platform darwin/arm64 -t ghcr.io/jmfrank63/luuk/luuk:latest .
+
 # Push the Docker image to the registry
 docker buildx build --platform linux/amd64 -t ghcr.io/jmfrank63/luuk/luuk:latest --push .
+
+# Push the Docker image to the registry
+docker buildx build --platform darwin/arm64 -t ghcr.io/jmfrank63/luuk/luuk:latest --push .
