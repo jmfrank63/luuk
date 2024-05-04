@@ -1,0 +1,17 @@
+#forecast {
+    font-family: sans-serif;
+  }
+  
+  #forecast ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* This will create a responsive grid with a minimum column width of 200px. Adjust the pixel value for different column widths. */
+    gap: 1em; /* This is the space between grid items. Adjust the value for more or less space. */
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  #forecast ul li {
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }

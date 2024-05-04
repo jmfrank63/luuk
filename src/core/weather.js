@@ -49,10 +49,7 @@ function getWeatherData(locationData) {
 
               if (hour === Number(locationData.utc_hour) && i === 0) {
                 const dateKey = date.toISOString().split("T")[0];
-                const localTime = new Date(item.time);
-                localTime.setHours(
-                  localTime.getHours() + locationData.dstOffset
-                );
+                const localTime = calculateLocalTime(item);
                 iterationData[dateKey] = {
                   time: localTime.toISOString(),
                   localTime: localTime.toLocaleTimeString(),
@@ -64,10 +61,7 @@ function getWeatherData(locationData) {
               if (hour === Number(nearestHour) && i === 1) {
                 const dateKey = date.toISOString().split("T")[0];
                 if (!dailyData.hasOwnProperty(dateKey)) {
-                  const localTime = new Date(item.time);
-                  localTime.setHours(
-                    localTime.getHours() + locationData.dstOffset
-                  );
+                  const localTime = calculateLocalTime(item);
                   iterationData[dateKey] = {
                     time: localTime.toISOString(),
                     localTime: localTime.toLocaleTimeString(),
@@ -88,9 +82,28 @@ function getWeatherData(locationData) {
         reject(err);
       });
   });
+
+  function calculateLocalTime(item) {
+    const date = new Date(item.time);
+    const utcDate = new Date(
+      Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        date.getUTCHours(),
+        date.getUTCMinutes(),
+        date.getUTCSeconds()
+      )
+    );
+    utcDate.setHours(utcDate.getHours() + locationData.dstOffset);
+    const localTime = new Date(
+      utcDate.getTime() + utcDate.getTimezoneOffset() * 60000
+    );
+    return localTime;
+  }
 }
 
 module.exports = {
   getWeatherData,
   getNearestHour,
-}
+};

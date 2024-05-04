@@ -33,7 +33,7 @@ async function sendResponse(location, req, res) {
       if (keys[i].startsWith("2024")) {
         // Check if the key represents a date
         const dayData = locationData[keys[i]];
-        forecastHtml += `<li>${keys[i]}: ${dayData.temperature}°C, wind ${dayData.windSpeed}m/s</li>\n`;
+        forecastHtml += `<li>${keys[i]} ${dayData.localTime} ${dayData.temperature}°C, Wind ${dayData.windSpeed}m/s Direction ${dayData.windDirection}</li>\n`;
       }
     }
     forecastHtml += "</ul>";

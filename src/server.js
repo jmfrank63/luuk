@@ -1,25 +1,19 @@
 const http = require("http");
 const { URL } = require("url");
-const fs = require("fs");
-const path = require("path");
-const RateLimiter = require("./middleware/ratelimiter");
-const { fetchLocationData } = require("./core/location");
-const html_weather = require("./handlers/htmx");
 const { HOSTNAME, PORT } = require("./consts");
 const notFound = require("./handlers/notFound");
 const routes = require("./routes");
+const static = require("./handlers/static");
 
 const hostname = process.env.HOSTNAME || HOSTNAME;
 const port = process.env.PORT || PORT;
 
 const server = http.createServer((req, res) => {
   const requestUrl = new URL(req.url, `http://${req.headers.host}`);
-  const handler = routes[requestUrl.pathname];
-  if (handler) {
-    handler(req, res);
-  } else {
+  const handler = routes[requestUrl.pathname] || static;
+  handler(req, res, () => {
     notFound(req, res);
-  }
+  });
 });
 
 server.listen(port, hostname, () => {

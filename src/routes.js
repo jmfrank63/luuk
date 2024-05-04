@@ -4,8 +4,6 @@ const apiWeather = require("./handlers/api");
 const rateLimitMiddleware = require("./middleware/ratelimit");
 
 const routes = {
-  "/": static,
-  "/js/htmx.min.js": static,
   "/weather": htmxWeather,
   "/api/weather": rateLimitMiddleware(apiWeather),
 };

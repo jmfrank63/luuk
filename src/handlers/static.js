@@ -33,7 +33,6 @@ function static(req, res) {
   }
   const ext = path.extname(filePath);
   const contentType = mimeTypes[ext] || 'application/octet-stream';
-
   serve(res, filePath, contentType);
 }
 
