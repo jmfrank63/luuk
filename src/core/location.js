@@ -78,7 +78,7 @@ function getGeonameIdData(geonameId, utc_hour) {
   });
 }
 
-async function fetchLocationData(location) {
+async function fetchLocationWeather(location) {
   // Use the GeoNames API to get the location ID
   const utc_hour = "11";
   const geonameId = await getGeonameId(location);
@@ -96,4 +96,4 @@ async function fetchLocationData(location) {
   return combinedData;
 }
 
-module.exports = { getGeonameId, getGeonameIdData, fetchLocationData };
+module.exports = { getGeonameId, getGeonameIdData, fetchLocationData: fetchLocationWeather };
