@@ -3,7 +3,7 @@ const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
 const http = require("http");
-const { getGeonameId, getGeonameIdData } = require("../src/location.js"); // Assuming getGeonameId is exported from another module
+const { getGeonameId, getGeonameIdData } = require("../src/core/location.js"); // Assuming getGeonameId is exported from another module
 
 test("getGeonameId", async () => {
   // Save the original http.get function
@@ -97,4 +97,3 @@ test("getGeonameIdData", async () => {
   // Restore the original http.get function
   http.get = originalHttpGet;
 });
-

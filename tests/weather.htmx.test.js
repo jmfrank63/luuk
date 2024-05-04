@@ -4,7 +4,7 @@ const path = require("path");
 const assert = require("assert");
 
 test("htmx_weather", async () => {
-  const location = require("../src/location.js");
+  const location = require("../src/core/location.js");
 
   // Save original fetchLocationData function
   const originalFetchLocationData = location.fetchLocationData;
@@ -21,7 +21,14 @@ test("htmx_weather", async () => {
     return JSON.parse(rawWeatherResponse);
   };
 
-  const htmx_weather = require("../src/handlers/htmx_weather.js");
+  const htmx_weather = require("../src/handlers/htmx.js");
+
+  const req = {
+    url: '/?location=Tomsk',
+    headers: {
+      host: 'localhost'
+    }
+  };
 
   let responseData = null;
   const res = {
@@ -51,7 +58,8 @@ test("htmx_weather", async () => {
       this.headers = Object.assign(this.headers, headers);
     },
   };
-  await htmx_weather(null, res, "Tomsk", null, null);
+  
+  await htmx_weather(req, res);
   expectedHtml = `
       <h1>Tomsk, Russia</h1>
       <p>Latitude: 56.4977, Longitude: 84.9744</p>

@@ -1,9 +1,10 @@
 const http = require("http");
 const querystring = require("querystring");
 const { getWeatherData } = require("./weather.js");
+const { GEO_USERNAME } = require("../consts.js");
 
 function getGeonameId(location = "Moscow") {
-  const username = process.env.GEO_USERNAME || "demo";
+  const username = process.env.GEO_USERNAME || GEO_USERNAME;
   return new Promise((resolve, reject) => {
     const encodedLocation = querystring.escape(location);
 
@@ -40,7 +41,7 @@ function getGeonameId(location = "Moscow") {
 }
 
 function getGeonameIdData(geonameId, utc_hour) {
-  const username = process.env.GEO_USERNAME || "demo";
+  const username = process.env.GEO_USERNAME || GEO_USERNAME;
   return new Promise((resolve, reject) => {
     const geonamesDetailsOptions = {
       hostname: "api.geonames.org",

@@ -1,3 +1,5 @@
+const RateLimiter = require("./ratelimiter");
+
 const rateLimiter = new RateLimiter(1, 10); // tokens per second, max tokens
 
 function rateLimitMiddleware(handler) {

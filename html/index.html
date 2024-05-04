@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather-App-Demo</title>
-    <script src="/html/js/htmx.min.js"></script>
+    <script src="js/htmx.min.js"></script>
 </head>
 <body>
-    <form hx-post="/html/weather" hx-target="#forecast">
+    <form hx-post="/weather" hx-trigger="load, submit" hx-target="#forecast">
             <input type="text" id="location" name="location" placeholder="Enter a location" value="Moscow">
             <button type="submit">Get Forecast</button>
     </form>
-
-
 
     <div id="forecast">
         <!-- The forecast data will be inserted here -->

@@ -1,6 +1,25 @@
-const { fetchLocationData } = require("../location");
+const { fetchLocationData } = require("../core/location");
 
-async function htmx_weather(_req, res, location, _utc, _username) {
+async function weather(req, res) {
+  const requestUrl = new URL(req.url, `http://${req.headers.host}`);
+  let location;
+  if (req.method === "POST") {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk.toString();
+    });
+    req.on("end", async () => {
+      const params = new URLSearchParams(body);
+      location = params.get("location");
+      await sendResponse(location, req, res);
+    });
+  } else {
+    location = requestUrl.searchParams.get("location");
+    await sendResponse(location, req, res);
+  }
+}
+
+async function sendResponse(location, req, res) {
   try {
     const locationData = await fetchLocationData(location);
     let forecastHtml = `
@@ -21,9 +40,10 @@ async function htmx_weather(_req, res, location, _utc, _username) {
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(forecastHtml);
   } catch (error) {
+    console.error("Error fetching location data:", error);
     res.writeHead(500, { "Content-Type": "text/html" });
     res.end("<p>Error loading weather data</p>");
   }
 }
 
-module.exports = htmx_weather;
+module.exports = weather;

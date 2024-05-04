@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const assert = require("assert");
 const test = require('node:test');
-const {getWeatherData} = require("../src/weather.js");
+const {getWeatherData} = require("../src/core/weather.js");
 
 // Save the original https.get function
 const originalHttpsGet = https.get;
@@ -126,7 +126,7 @@ test("getWeatherData", async () => {
 });
 
 test("getNearestHour", async () => {
-  const { getNearestHour } = require("../src/weather.js");
+  const { getNearestHour } = require("../src/core/weather.js");
 
   const testCases = [
     { input: 0, expected: 0 },
