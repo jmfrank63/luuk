@@ -26,7 +26,7 @@ function getGeonameId(location = "Moscow") {
           !locationResponse.geonames ||
           locationResponse.geonames.length === 0
         ) {
-          reject(new Error(`No results found for location "${location}"`));
+          resolve(`${location} not found`);
           return;
         }
 
@@ -57,14 +57,18 @@ function getGeonameIdData(geonameId, utc_hour) {
       });
       res.on("end", () => {
         const locationDetails = JSON.parse(data);
-
+        // Use the location details to get the location data
+        let altitude = locationDetails.srtm3;
+        if (altitude < 0) {
+          altitude = 0;
+        }
         // Use the location details to get the location data
         const locationData = {
           location: locationDetails.name,
           country: locationDetails.countryName,
           latitude: parseFloat((+locationDetails.lat).toFixed(4)),
           longitude: parseFloat((+locationDetails.lng).toFixed(4)),
-          altitude: locationDetails.srtm3,
+          altitude: altitude,
           utc_hour: utc_hour,
           dstOffset: locationDetails.timezone.dstOffset,
         };
@@ -78,13 +82,13 @@ function getGeonameIdData(geonameId, utc_hour) {
   });
 }
 
-async function fetchLocationWeather(location) {
-  // Use the GeoNames API to get the location ID
-  const utc_hour = "11";
+async function fetchLocationWeather(location, utc_hour = "11") {
   const geonameId = await getGeonameId(location);
+  if (typeof geonameId === 'string' && geonameId.includes("not found")) {
+    return { error: geonameId };
+  }
   // Use the GeoNames API to get the location details
   const locationData = await getGeonameIdData(geonameId, utc_hour);
-
   // Get the weather data
   const weatherData = await getWeatherData(locationData);
 
@@ -96,4 +100,4 @@ async function fetchLocationWeather(location) {
   return combinedData;
 }
 
-module.exports = { getGeonameId, getGeonameIdData, fetchLocationData: fetchLocationWeather };
+module.exports = { getGeonameId, getGeonameIdData, fetchLocationWeather };

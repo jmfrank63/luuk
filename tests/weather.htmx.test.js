@@ -6,11 +6,11 @@ const assert = require("assert");
 test("htmx_weather", async () => {
   const location = require("../src/core/location.js");
 
-  // Save original fetchLocationData function
-  const originalFetchLocationData = location.fetchLocationData;
+  // Save original fetchLocationWeather function
+  const originalfetchLocationWeather = location.fetchLocationWeather;
 
-  // Mock the fetchLocationData function
-  location.fetchLocationData = async () => {
+  // Mock the fetchLocationWeather function
+  location.fetchLocationWeather = async () => {
     const rawWeatherResponse = fs.readFileSync(
       path.join(
         __dirname,
@@ -24,10 +24,10 @@ test("htmx_weather", async () => {
   const htmx_weather = require("../src/handlers/htmx.js");
 
   const req = {
-    url: '/?location=Tomsk',
+    url: "/?location=Tomsk",
     headers: {
-      host: 'localhost'
-    }
+      host: "localhost",
+    },
   };
 
   let responseData = null;
@@ -58,7 +58,7 @@ test("htmx_weather", async () => {
       this.headers = Object.assign(this.headers, headers);
     },
   };
-  
+
   await htmx_weather(req, res);
   expectedHtml = `
       <h1>Tomsk, Russia</h1>
@@ -76,7 +76,7 @@ test("htmx_weather", async () => {
 <li>2024-05-12: 15.4°C, wind 1.7m/s</li>
 </ul>`;
   assert.strictEqual(responseData, expectedHtml);
-  
-  // Restore the original fetchLocationData function
-  location.fetchLocationData = originalFetchLocationData;
+
+  // Restore the original fetchLocationWeather function
+  location.fetchLocationWeather = originalfetchLocationWeather;
 });

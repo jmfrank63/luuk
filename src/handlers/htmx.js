@@ -1,8 +1,9 @@
-const { fetchLocationData } = require("../core/location");
+const { fetchLocationWeather } = require("../core/location");
 
 async function weather(req, res) {
   const requestUrl = new URL(req.url, `http://${req.headers.host}`);
   let location;
+  let utc_hour;
   if (req.method === "POST") {
     let body = "";
     req.on("data", (chunk) => {
@@ -11,17 +12,24 @@ async function weather(req, res) {
     req.on("end", async () => {
       const params = new URLSearchParams(body);
       location = params.get("location");
-      await sendResponse(location, req, res);
+      utc_hour = params.get("utc_hour");
+      await sendResponse(location, utc_hour, req, res);
     });
   } else {
     location = requestUrl.searchParams.get("location");
-    await sendResponse(location, req, res);
+    utc_hour = requestUrl.searchParams.get("utc_hour");
+    await sendResponse(location, utc_hour, req, res);
   }
 }
 
-async function sendResponse(location, req, res) {
+async function sendResponse(location, utc_hour, req, res) {
   try {
-    const locationData = await fetchLocationData(location);
+    const locationData = await fetchLocationWeather(location, utc_hour);
+    if (locationData.error) {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(`<p>Location: ${locationData.error}</p>`);
+      return;
+    }
     let forecastHtml = `
       <h1>${locationData.location}, ${locationData.country}</h1>
       <p>Latitude: ${locationData.latitude}, Longitude: ${locationData.longitude}</p>

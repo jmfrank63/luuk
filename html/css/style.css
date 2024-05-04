@@ -1,4 +1,4 @@
-#forecast {
+body {
     font-family: sans-serif;
   }
   
@@ -15,3 +15,35 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
+
+form {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  align-items: center;
+  justify-content: start;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
+
+form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  grid-column: span 2;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+form button:hover {
+  background-color: #45a049;
+}
