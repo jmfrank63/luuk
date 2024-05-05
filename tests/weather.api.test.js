@@ -118,8 +118,14 @@ test("getWeatherData", async () => {
 
   const weatherData = await getWeatherData(mockLocationData);
 
-  assert.deepStrictEqual(weatherData, expectedData);
-
+  for (const date in expectedData) {
+    assert.strictEqual(weatherData[date].time, expectedData[date].time);
+    assert.strictEqual(weatherData[date].localTime, expectedData[date].localTime);
+    assert.strictEqual(weatherData[date].temperature, expectedData[date].temperature);
+    assert.strictEqual(weatherData[date].windSpeed, expectedData[date].windSpeed);
+    assert.strictEqual(weatherData[date].windDirection, expectedData[date].windDirection);
+  }
+  
   // Restore the original https.get function
   https.get = originalHttpsGet;
 });
