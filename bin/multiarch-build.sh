@@ -13,8 +13,8 @@ docker buildx use luuk-multiarch-builder
 # Enable emulation so you can build for different architectures
 docker run --rm --privileged tonistiigi/binfmt:latest
 
-# Build the Docker image for amd64
+# Build the Docker multi arch image for amd64
 docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/jmfrank63/luuk/luuk:latest .
 
-# Push the Docker image to the registry
+# Push the Docker multi arch image to the registry
 docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/jmfrank63/luuk/luuk:latest --push .
