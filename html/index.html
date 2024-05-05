@@ -13,7 +13,7 @@
     <div class="container">
         <div id="logo-form-container">
             <img src="img/LUUK_logo_black_full.png" id="logo" alt="Luuk Logo">
-            <form hx-post="/weather" hx-trigger="load, submit" hx-target="#forecast">
+            <form data-hx-post="/weather" data-hx-trigger="load, submit" data-hx-target="#forecast">
                 <label for="location">Location:</label>
                 <input type="text" id="location" name="location" placeholder="Enter a location" value="Moscow">
 
