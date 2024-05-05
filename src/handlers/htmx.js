@@ -30,8 +30,14 @@ async function sendResponse(location, utc_hour, req, res) {
       res.end(`<p>Location: ${locationData.error}</p>`);
       return;
     }
+    let country;
+    if (locationData.country === undefined) {
+      country = ""
+    } else {
+      country = ", " + locationData.country;
+    }
     let forecastHtml = `
-      <h1>Location ${locationData.location}</h1>
+      <h1>Location ${locationData.location}${country}</h1>
       <p>Latitude: ${locationData.latitude !== undefined ? locationData.latitude : '- '}, Longitude: ${locationData.longitude !== undefined ? locationData.longitude : '- '}</p>
 <p>Altitude: ${locationData.altitude !== undefined ? locationData.altitude + ' m' : '- '}, UTC Hour: ${locationData.utc_hour !== undefined ? locationData.utc_hour : '- '}, DST Offset: ${locationData.dstOffset !== undefined ? locationData.dstOffset : '- '}</p>
       <ul>
