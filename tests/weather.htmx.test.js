@@ -63,7 +63,7 @@ test("htmx_weather", async () => {
   expectedHtml = `
       <h1>Tomsk, Russia</h1>
       <p>Latitude: 56.4977, Longitude: 84.9744</p>
-      <p>Altitude: 117m, UTC Hour: 11, DST Offset: 7</p>
+<p>Altitude: 117 m, UTC Hour: 11, DST Offset: 7</p>
       <ul>
     <li>2024-05-04 1:00:00AM 9.5°C, Wind 5.1m/s Direction 114.7</li>
 <li>2024-05-05 1:00:00AM 16°C, Wind 6.1m/s Direction 249.5</li>
