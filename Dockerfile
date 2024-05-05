@@ -11,7 +11,7 @@ COPY . .
 # RUN npm ci --only=production
 
 # Use the minimal Alpine image to run the application
-FROM alpine:3.18
+FROM alpine:3.19
 
 # Install Node.js
 RUN apk add --no-cache nodejs
@@ -27,5 +27,3 @@ EXPOSE 3000
 
 # Define the command to run the application
 CMD [ "node", "src/server.js" ]
-
-
